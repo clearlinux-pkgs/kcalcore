@@ -5,22 +5,22 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kcalcore
-Version  : 18.08.0
-Release  : 2
-URL      : https://download.kde.org/stable/applications/18.08.0/src/kcalcore-18.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.08.0/src/kcalcore-18.08.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.08.0/src/kcalcore-18.08.0.tar.xz.sig
+Version  : 18.12.2
+Release  : 3
+URL      : https://download.kde.org/stable/applications/18.12.2/src/kcalcore-18.12.2.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.2/src/kcalcore-18.12.2.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.2/src/kcalcore-18.12.2.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause LGPL-2.0
-Requires: kcalcore-lib
-Requires: kcalcore-license
-Requires: kcalcore-data
+Requires: kcalcore-data = %{version}-%{release}
+Requires: kcalcore-lib = %{version}-%{release}
+Requires: kcalcore-license = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(libical)
-BuildRequires : qtbase-dev qtbase-extras mesa-dev
+BuildRequires : qtbase-dev mesa-dev
 
 %description
 To build these tests, build with the cmake option KDE4_BUILD_TESTS=ON.
@@ -39,9 +39,9 @@ data components for the kcalcore package.
 %package dev
 Summary: dev components for the kcalcore package.
 Group: Development
-Requires: kcalcore-lib
-Requires: kcalcore-data
-Provides: kcalcore-devel
+Requires: kcalcore-lib = %{version}-%{release}
+Requires: kcalcore-data = %{version}-%{release}
+Provides: kcalcore-devel = %{version}-%{release}
 
 %description dev
 dev components for the kcalcore package.
@@ -50,8 +50,8 @@ dev components for the kcalcore package.
 %package lib
 Summary: lib components for the kcalcore package.
 Group: Libraries
-Requires: kcalcore-data
-Requires: kcalcore-license
+Requires: kcalcore-data = %{version}-%{release}
+Requires: kcalcore-license = %{version}-%{release}
 
 %description lib
 lib components for the kcalcore package.
@@ -66,26 +66,26 @@ license components for the kcalcore package.
 
 
 %prep
-%setup -q -n kcalcore-18.08.0
+%setup -q -n kcalcore-18.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535426481
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1549855772
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535426481
+export SOURCE_DATE_EPOCH=1549855772
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/kcalcore
-cp COPYING %{buildroot}/usr/share/doc/kcalcore/COPYING
-cp cmake/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/doc/kcalcore/cmake_COPYING-CMAKE-SCRIPTS
+mkdir -p %{buildroot}/usr/share/package-licenses/kcalcore
+cp COPYING %{buildroot}/usr/share/package-licenses/kcalcore/COPYING
+cp cmake/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/kcalcore/cmake_COPYING-CMAKE-SCRIPTS
 pushd clr-build
 %make_install
 popd
@@ -176,9 +176,9 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5CalendarCore.so.5
-/usr/lib64/libKF5CalendarCore.so.5.9.0
+/usr/lib64/libKF5CalendarCore.so.5.10.2
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/kcalcore/COPYING
-/usr/share/doc/kcalcore/cmake_COPYING-CMAKE-SCRIPTS
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/kcalcore/COPYING
+/usr/share/package-licenses/kcalcore/cmake_COPYING-CMAKE-SCRIPTS
