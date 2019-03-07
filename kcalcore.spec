@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kcalcore
-Version  : 18.12.2
-Release  : 5
-URL      : https://download.kde.org/stable/applications/18.12.2/src/kcalcore-18.12.2.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.12.2/src/kcalcore-18.12.2.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.12.2/src/kcalcore-18.12.2.tar.xz.sig
+Version  : 18.12.3
+Release  : 6
+URL      : https://download.kde.org/stable/applications/18.12.3/src/kcalcore-18.12.3.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.3/src/kcalcore-18.12.3.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.3/src/kcalcore-18.12.3.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause LGPL-2.0
@@ -66,22 +66,23 @@ license components for the kcalcore package.
 
 
 %prep
-%setup -q -n kcalcore-18.12.2
+%setup -q -n kcalcore-18.12.3
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1549882118
+export SOURCE_DATE_EPOCH=1551994323
 mkdir -p clr-build
 pushd clr-build
+export LDFLAGS="${LDFLAGS} -fno-lto"
 %cmake ..
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1549882118
+export SOURCE_DATE_EPOCH=1551994323
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kcalcore
 cp COPYING %{buildroot}/usr/share/package-licenses/kcalcore/COPYING
@@ -176,7 +177,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5CalendarCore.so.5
-/usr/lib64/libKF5CalendarCore.so.5.10.2
+/usr/lib64/libKF5CalendarCore.so.5.10.3
 
 %files license
 %defattr(0644,root,root,0755)
