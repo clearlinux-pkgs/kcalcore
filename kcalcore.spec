@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kcalcore
-Version  : 19.04.0
-Release  : 9
-URL      : https://download.kde.org/stable/applications/19.04.0/src/kcalcore-19.04.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/19.04.0/src/kcalcore-19.04.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/19.04.0/src/kcalcore-19.04.0.tar.xz.sig
+Version  : 19.04.1
+Release  : 10
+URL      : https://download.kde.org/stable/applications/19.04.1/src/kcalcore-19.04.1.tar.xz
+Source0  : https://download.kde.org/stable/applications/19.04.1/src/kcalcore-19.04.1.tar.xz
+Source99 : https://download.kde.org/stable/applications/19.04.1/src/kcalcore-19.04.1.tar.xz.sig
 Summary  : The KDE calendar access library
 Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0
@@ -43,6 +43,7 @@ Requires: kcalcore-lib = %{version}-%{release}
 Requires: kcalcore-data = %{version}-%{release}
 Provides: kcalcore-devel = %{version}-%{release}
 Requires: kcalcore = %{version}-%{release}
+Requires: kcalcore = %{version}-%{release}
 
 %description dev
 dev components for the kcalcore package.
@@ -67,14 +68,14 @@ license components for the kcalcore package.
 
 
 %prep
-%setup -q -n kcalcore-19.04.0
+%setup -q -n kcalcore-19.04.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1557003887
+export SOURCE_DATE_EPOCH=1557438092
 mkdir -p clr-build
 pushd clr-build
 export AR=gcc-ar
@@ -89,7 +90,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1557003887
+export SOURCE_DATE_EPOCH=1557438092
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kcalcore
 cp COPYING %{buildroot}/usr/share/package-licenses/kcalcore/COPYING
@@ -184,7 +185,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5CalendarCore.so.5
-/usr/lib64/libKF5CalendarCore.so.5.11.0
+/usr/lib64/libKF5CalendarCore.so.5.11.1
 
 %files license
 %defattr(0644,root,root,0755)
