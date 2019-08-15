@@ -5,14 +5,14 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kcalcore
-Version  : 19.04.3
-Release  : 12
-URL      : https://download.kde.org/stable/applications/19.04.3/src/kcalcore-19.04.3.tar.xz
-Source0  : https://download.kde.org/stable/applications/19.04.3/src/kcalcore-19.04.3.tar.xz
-Source99 : https://download.kde.org/stable/applications/19.04.3/src/kcalcore-19.04.3.tar.xz.sig
+Version  : 19.08.0
+Release  : 13
+URL      : https://download.kde.org/stable/applications/19.08.0/src/kcalcore-19.08.0.tar.xz
+Source0  : https://download.kde.org/stable/applications/19.08.0/src/kcalcore-19.08.0.tar.xz
+Source1 : https://download.kde.org/stable/applications/19.08.0/src/kcalcore-19.08.0.tar.xz.sig
 Summary  : The KDE calendar access library
 Group    : Development/Tools
-License  : BSD-3-Clause GPL-2.0
+License  : BSD-3-Clause
 Requires: kcalcore-data = %{version}-%{release}
 Requires: kcalcore-lib = %{version}-%{release}
 Requires: kcalcore-license = %{version}-%{release}
@@ -68,16 +68,17 @@ license components for the kcalcore package.
 
 
 %prep
-%setup -q -n kcalcore-19.04.3
+%setup -q -n kcalcore-19.08.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1562865958
+export SOURCE_DATE_EPOCH=1565895555
 mkdir -p clr-build
 pushd clr-build
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -91,10 +92,9 @@ make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1562865958
+export SOURCE_DATE_EPOCH=1565895555
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kcalcore
-cp COPYING %{buildroot}/usr/share/package-licenses/kcalcore/COPYING
 cp cmake/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/kcalcore/cmake_COPYING-CMAKE-SCRIPTS
 pushd clr-build
 %make_install
@@ -105,90 +105,147 @@ popd
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/xdg/kcalcore.categories
-/usr/share/xdg/kcalcore.renamecategories
+/usr/share/qlogging-categories5/kcalendarcore.categories
+/usr/share/qlogging-categories5/kcalendarcore.renamecategories
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/KF5/KCalCore/KCalCore/Alarm
-/usr/include/KF5/KCalCore/KCalCore/Attachment
-/usr/include/KF5/KCalCore/KCalCore/Attendee
-/usr/include/KF5/KCalCore/KCalCore/CalFilter
-/usr/include/KF5/KCalCore/KCalCore/CalFormat
-/usr/include/KF5/KCalCore/KCalCore/CalStorage
-/usr/include/KF5/KCalCore/KCalCore/Calendar
-/usr/include/KF5/KCalCore/KCalCore/CustomProperties
-/usr/include/KF5/KCalCore/KCalCore/Duration
-/usr/include/KF5/KCalCore/KCalCore/Event
-/usr/include/KF5/KCalCore/KCalCore/Exceptions
-/usr/include/KF5/KCalCore/KCalCore/FileStorage
-/usr/include/KF5/KCalCore/KCalCore/FreeBusy
-/usr/include/KF5/KCalCore/KCalCore/FreeBusyCache
-/usr/include/KF5/KCalCore/KCalCore/FreeBusyPeriod
-/usr/include/KF5/KCalCore/KCalCore/ICalFormat
-/usr/include/KF5/KCalCore/KCalCore/Incidence
-/usr/include/KF5/KCalCore/KCalCore/IncidenceBase
-/usr/include/KF5/KCalCore/KCalCore/Journal
-/usr/include/KF5/KCalCore/KCalCore/MemoryCalendar
-/usr/include/KF5/KCalCore/KCalCore/OccurrenceIterator
-/usr/include/KF5/KCalCore/KCalCore/Period
-/usr/include/KF5/KCalCore/KCalCore/Person
-/usr/include/KF5/KCalCore/KCalCore/Recurrence
-/usr/include/KF5/KCalCore/KCalCore/RecurrenceRule
-/usr/include/KF5/KCalCore/KCalCore/ScheduleMessage
-/usr/include/KF5/KCalCore/KCalCore/SortableList
-/usr/include/KF5/KCalCore/KCalCore/Sorting
-/usr/include/KF5/KCalCore/KCalCore/Todo
-/usr/include/KF5/KCalCore/KCalCore/VCalFormat
-/usr/include/KF5/KCalCore/KCalCore/Visitor
-/usr/include/KF5/KCalCore/kcalcore/alarm.h
-/usr/include/KF5/KCalCore/kcalcore/attachment.h
-/usr/include/KF5/KCalCore/kcalcore/attendee.h
-/usr/include/KF5/KCalCore/kcalcore/calendar.h
-/usr/include/KF5/KCalCore/kcalcore/calfilter.h
-/usr/include/KF5/KCalCore/kcalcore/calformat.h
-/usr/include/KF5/KCalCore/kcalcore/calstorage.h
-/usr/include/KF5/KCalCore/kcalcore/customproperties.h
-/usr/include/KF5/KCalCore/kcalcore/duration.h
-/usr/include/KF5/KCalCore/kcalcore/event.h
-/usr/include/KF5/KCalCore/kcalcore/exceptions.h
-/usr/include/KF5/KCalCore/kcalcore/filestorage.h
-/usr/include/KF5/KCalCore/kcalcore/freebusy.h
-/usr/include/KF5/KCalCore/kcalcore/freebusycache.h
-/usr/include/KF5/KCalCore/kcalcore/freebusyperiod.h
-/usr/include/KF5/KCalCore/kcalcore/icalformat.h
-/usr/include/KF5/KCalCore/kcalcore/incidence.h
-/usr/include/KF5/KCalCore/kcalcore/incidencebase.h
-/usr/include/KF5/KCalCore/kcalcore/journal.h
-/usr/include/KF5/KCalCore/kcalcore/kcalcore_export.h
-/usr/include/KF5/KCalCore/kcalcore/memorycalendar.h
-/usr/include/KF5/KCalCore/kcalcore/occurrenceiterator.h
-/usr/include/KF5/KCalCore/kcalcore/period.h
-/usr/include/KF5/KCalCore/kcalcore/person.h
-/usr/include/KF5/KCalCore/kcalcore/recurrence.h
-/usr/include/KF5/KCalCore/kcalcore/recurrencerule.h
-/usr/include/KF5/KCalCore/kcalcore/schedulemessage.h
-/usr/include/KF5/KCalCore/kcalcore/sortablelist.h
-/usr/include/KF5/KCalCore/kcalcore/sorting.h
-/usr/include/KF5/KCalCore/kcalcore/supertrait.h
-/usr/include/KF5/KCalCore/kcalcore/todo.h
-/usr/include/KF5/KCalCore/kcalcore/vcalformat.h
-/usr/include/KF5/KCalCore/kcalcore/visitor.h
-/usr/include/KF5/kcalcore_version.h
+/usr/include/KF5/KCalendarCore/KCalCore/Alarm
+/usr/include/KF5/KCalendarCore/KCalCore/Attachment
+/usr/include/KF5/KCalendarCore/KCalCore/Attendee
+/usr/include/KF5/KCalendarCore/KCalCore/CalFilter
+/usr/include/KF5/KCalendarCore/KCalCore/CalFormat
+/usr/include/KF5/KCalendarCore/KCalCore/CalStorage
+/usr/include/KF5/KCalendarCore/KCalCore/Calendar
+/usr/include/KF5/KCalendarCore/KCalCore/CustomProperties
+/usr/include/KF5/KCalendarCore/KCalCore/Duration
+/usr/include/KF5/KCalendarCore/KCalCore/Event
+/usr/include/KF5/KCalendarCore/KCalCore/Exceptions
+/usr/include/KF5/KCalendarCore/KCalCore/FileStorage
+/usr/include/KF5/KCalendarCore/KCalCore/FreeBusy
+/usr/include/KF5/KCalendarCore/KCalCore/FreeBusyCache
+/usr/include/KF5/KCalendarCore/KCalCore/FreeBusyPeriod
+/usr/include/KF5/KCalendarCore/KCalCore/ICalFormat
+/usr/include/KF5/KCalendarCore/KCalCore/Incidence
+/usr/include/KF5/KCalendarCore/KCalCore/IncidenceBase
+/usr/include/KF5/KCalendarCore/KCalCore/Journal
+/usr/include/KF5/KCalendarCore/KCalCore/MemoryCalendar
+/usr/include/KF5/KCalendarCore/KCalCore/OccurrenceIterator
+/usr/include/KF5/KCalendarCore/KCalCore/Period
+/usr/include/KF5/KCalendarCore/KCalCore/Person
+/usr/include/KF5/KCalendarCore/KCalCore/Recurrence
+/usr/include/KF5/KCalendarCore/KCalCore/RecurrenceRule
+/usr/include/KF5/KCalendarCore/KCalCore/ScheduleMessage
+/usr/include/KF5/KCalendarCore/KCalCore/Sorting
+/usr/include/KF5/KCalendarCore/KCalCore/Todo
+/usr/include/KF5/KCalendarCore/KCalCore/VCalFormat
+/usr/include/KF5/KCalendarCore/KCalCore/Visitor
+/usr/include/KF5/KCalendarCore/KCalendarCore/Alarm
+/usr/include/KF5/KCalendarCore/KCalendarCore/Attachment
+/usr/include/KF5/KCalendarCore/KCalendarCore/Attendee
+/usr/include/KF5/KCalendarCore/KCalendarCore/CalFilter
+/usr/include/KF5/KCalendarCore/KCalendarCore/CalFormat
+/usr/include/KF5/KCalendarCore/KCalendarCore/CalStorage
+/usr/include/KF5/KCalendarCore/KCalendarCore/Calendar
+/usr/include/KF5/KCalendarCore/KCalendarCore/CustomProperties
+/usr/include/KF5/KCalendarCore/KCalendarCore/Duration
+/usr/include/KF5/KCalendarCore/KCalendarCore/Event
+/usr/include/KF5/KCalendarCore/KCalendarCore/Exceptions
+/usr/include/KF5/KCalendarCore/KCalendarCore/FileStorage
+/usr/include/KF5/KCalendarCore/KCalendarCore/FreeBusy
+/usr/include/KF5/KCalendarCore/KCalendarCore/FreeBusyCache
+/usr/include/KF5/KCalendarCore/KCalendarCore/FreeBusyPeriod
+/usr/include/KF5/KCalendarCore/KCalendarCore/ICalFormat
+/usr/include/KF5/KCalendarCore/KCalendarCore/Incidence
+/usr/include/KF5/KCalendarCore/KCalendarCore/IncidenceBase
+/usr/include/KF5/KCalendarCore/KCalendarCore/Journal
+/usr/include/KF5/KCalendarCore/KCalendarCore/MemoryCalendar
+/usr/include/KF5/KCalendarCore/KCalendarCore/OccurrenceIterator
+/usr/include/KF5/KCalendarCore/KCalendarCore/Period
+/usr/include/KF5/KCalendarCore/KCalendarCore/Person
+/usr/include/KF5/KCalendarCore/KCalendarCore/Recurrence
+/usr/include/KF5/KCalendarCore/KCalendarCore/RecurrenceRule
+/usr/include/KF5/KCalendarCore/KCalendarCore/ScheduleMessage
+/usr/include/KF5/KCalendarCore/KCalendarCore/Sorting
+/usr/include/KF5/KCalendarCore/KCalendarCore/Todo
+/usr/include/KF5/KCalendarCore/KCalendarCore/VCalFormat
+/usr/include/KF5/KCalendarCore/KCalendarCore/Visitor
+/usr/include/KF5/KCalendarCore/kcalcore/alarm.h
+/usr/include/KF5/KCalendarCore/kcalcore/attachment.h
+/usr/include/KF5/KCalendarCore/kcalcore/attendee.h
+/usr/include/KF5/KCalendarCore/kcalcore/calendar.h
+/usr/include/KF5/KCalendarCore/kcalcore/calfilter.h
+/usr/include/KF5/KCalendarCore/kcalcore/calformat.h
+/usr/include/KF5/KCalendarCore/kcalcore/calstorage.h
+/usr/include/KF5/KCalendarCore/kcalcore/customproperties.h
+/usr/include/KF5/KCalendarCore/kcalcore/duration.h
+/usr/include/KF5/KCalendarCore/kcalcore/event.h
+/usr/include/KF5/KCalendarCore/kcalcore/exceptions.h
+/usr/include/KF5/KCalendarCore/kcalcore/filestorage.h
+/usr/include/KF5/KCalendarCore/kcalcore/freebusy.h
+/usr/include/KF5/KCalendarCore/kcalcore/freebusycache.h
+/usr/include/KF5/KCalendarCore/kcalcore/freebusyperiod.h
+/usr/include/KF5/KCalendarCore/kcalcore/icalformat.h
+/usr/include/KF5/KCalendarCore/kcalcore/incidence.h
+/usr/include/KF5/KCalendarCore/kcalcore/incidencebase.h
+/usr/include/KF5/KCalendarCore/kcalcore/journal.h
+/usr/include/KF5/KCalendarCore/kcalcore/kcalendarcore_export.h
+/usr/include/KF5/KCalendarCore/kcalcore/memorycalendar.h
+/usr/include/KF5/KCalendarCore/kcalcore/occurrenceiterator.h
+/usr/include/KF5/KCalendarCore/kcalcore/period.h
+/usr/include/KF5/KCalendarCore/kcalcore/person.h
+/usr/include/KF5/KCalendarCore/kcalcore/recurrence.h
+/usr/include/KF5/KCalendarCore/kcalcore/recurrencerule.h
+/usr/include/KF5/KCalendarCore/kcalcore/schedulemessage.h
+/usr/include/KF5/KCalendarCore/kcalcore/sorting.h
+/usr/include/KF5/KCalendarCore/kcalcore/todo.h
+/usr/include/KF5/KCalendarCore/kcalcore/vcalformat.h
+/usr/include/KF5/KCalendarCore/kcalcore/visitor.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/alarm.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/attachment.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/attendee.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/calendar.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/calfilter.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/calformat.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/calstorage.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/customproperties.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/duration.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/event.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/exceptions.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/filestorage.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/freebusy.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/freebusycache.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/freebusyperiod.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/icalformat.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/incidence.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/incidencebase.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/journal.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/kcalendarcore_export.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/memorycalendar.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/occurrenceiterator.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/period.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/person.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/recurrence.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/recurrencerule.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/schedulemessage.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/sorting.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/todo.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/vcalformat.h
+/usr/include/KF5/KCalendarCore/kcalendarcore/visitor.h
+/usr/include/KF5/kcalendarcore_version.h
 /usr/lib64/cmake/KF5CalendarCore/FindLibIcal.cmake
 /usr/lib64/cmake/KF5CalendarCore/KF5CalendarCoreConfig.cmake
 /usr/lib64/cmake/KF5CalendarCore/KF5CalendarCoreConfigVersion.cmake
 /usr/lib64/cmake/KF5CalendarCore/KF5CalendarCoreTargets-relwithdebinfo.cmake
 /usr/lib64/cmake/KF5CalendarCore/KF5CalendarCoreTargets.cmake
 /usr/lib64/libKF5CalendarCore.so
-/usr/lib64/qt5/mkspecs/modules/qt_KCalCore.pri
+/usr/lib64/qt5/mkspecs/modules/qt_KCalendarCore.pri
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5CalendarCore.so.5
-/usr/lib64/libKF5CalendarCore.so.5.11.3
+/usr/lib64/libKF5CalendarCore.so.5.12.0
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/kcalcore/COPYING
 /usr/share/package-licenses/kcalcore/cmake_COPYING-CMAKE-SCRIPTS
