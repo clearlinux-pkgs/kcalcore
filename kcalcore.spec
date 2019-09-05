@@ -5,14 +5,14 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kcalcore
-Version  : 19.08.0
-Release  : 13
-URL      : https://download.kde.org/stable/applications/19.08.0/src/kcalcore-19.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/19.08.0/src/kcalcore-19.08.0.tar.xz
-Source1 : https://download.kde.org/stable/applications/19.08.0/src/kcalcore-19.08.0.tar.xz.sig
+Version  : 19.08.1
+Release  : 14
+URL      : https://download.kde.org/stable/applications/19.08.1/src/kcalcore-19.08.1.tar.xz
+Source0  : https://download.kde.org/stable/applications/19.08.1/src/kcalcore-19.08.1.tar.xz
+Source1 : https://download.kde.org/stable/applications/19.08.1/src/kcalcore-19.08.1.tar.xz.sig
 Summary  : The KDE calendar access library
 Group    : Development/Tools
-License  : BSD-3-Clause
+License  : BSD-3-Clause LGPL-2.0
 Requires: kcalcore-data = %{version}-%{release}
 Requires: kcalcore-lib = %{version}-%{release}
 Requires: kcalcore-license = %{version}-%{release}
@@ -68,14 +68,14 @@ license components for the kcalcore package.
 
 
 %prep
-%setup -q -n kcalcore-19.08.0
+%setup -q -n kcalcore-19.08.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565895555
+export SOURCE_DATE_EPOCH=1567697122
 mkdir -p clr-build
 pushd clr-build
 # -Werror is for werrorists
@@ -92,9 +92,10 @@ make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1565895555
+export SOURCE_DATE_EPOCH=1567697122
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kcalcore
+cp COPYING %{buildroot}/usr/share/package-licenses/kcalcore/COPYING
 cp cmake/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/kcalcore/cmake_COPYING-CMAKE-SCRIPTS
 pushd clr-build
 %make_install
@@ -232,6 +233,7 @@ popd
 /usr/include/KF5/KCalendarCore/kcalendarcore/todo.h
 /usr/include/KF5/KCalendarCore/kcalendarcore/vcalformat.h
 /usr/include/KF5/KCalendarCore/kcalendarcore/visitor.h
+/usr/include/KF5/kcalcore_version.h
 /usr/include/KF5/kcalendarcore_version.h
 /usr/lib64/cmake/KF5CalendarCore/FindLibIcal.cmake
 /usr/lib64/cmake/KF5CalendarCore/KF5CalendarCoreConfig.cmake
@@ -244,8 +246,9 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5CalendarCore.so.5
-/usr/lib64/libKF5CalendarCore.so.5.12.0
+/usr/lib64/libKF5CalendarCore.so.5.12.1
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/kcalcore/COPYING
 /usr/share/package-licenses/kcalcore/cmake_COPYING-CMAKE-SCRIPTS
