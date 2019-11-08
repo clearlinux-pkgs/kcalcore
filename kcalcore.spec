@@ -6,7 +6,7 @@
 #
 Name     : kcalcore
 Version  : 19.08.3
-Release  : 16
+Release  : 17
 URL      : https://download.kde.org/stable/applications/19.08.3/src/kcalcore-19.08.3.tar.xz
 Source0  : https://download.kde.org/stable/applications/19.08.3/src/kcalcore-19.08.3.tar.xz
 Source1 : https://download.kde.org/stable/applications/19.08.3/src/kcalcore-19.08.3.tar.xz.sig
