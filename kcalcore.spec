@@ -6,7 +6,7 @@
 #
 Name     : kcalcore
 Version  : 19.08.3
-Release  : 17
+Release  : 18
 URL      : https://download.kde.org/stable/applications/19.08.3/src/kcalcore-19.08.3.tar.xz
 Source0  : https://download.kde.org/stable/applications/19.08.3/src/kcalcore-19.08.3.tar.xz
 Source1 : https://download.kde.org/stable/applications/19.08.3/src/kcalcore-19.08.3.tar.xz.sig
@@ -21,6 +21,7 @@ BuildRequires : buildreq-kde
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(libical)
 BuildRequires : qtbase-dev mesa-dev
+Patch1: versionfix.patch
 
 %description
 To build these tests, build with the cmake option KDE4_BUILD_TESTS=ON.
@@ -69,13 +70,14 @@ license components for the kcalcore package.
 
 %prep
 %setup -q -n kcalcore-19.08.3
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573164475
+export SOURCE_DATE_EPOCH=1573523005
 mkdir -p clr-build
 pushd clr-build
 # -Werror is for werrorists
@@ -92,7 +94,7 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1573164475
+export SOURCE_DATE_EPOCH=1573523005
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kcalcore
 cp %{_builddir}/kcalcore-19.08.3/COPYING %{buildroot}/usr/share/package-licenses/kcalcore/3ea2520f48fa2fae70df68cc170b4298c930ef32
@@ -246,7 +248,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5CalendarCore.so.5
-/usr/lib64/libKF5CalendarCore.so.5.12.2
+/usr/lib64/libKF5CalendarCore.so.5.12.3
 
 %files license
 %defattr(0644,root,root,0755)
